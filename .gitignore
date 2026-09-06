@@ -1,0 +1,48 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Pico / CMake build
+build/
+**/build/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+compile_commands.json
+.cache/
+
+# Firmware / link outputs (rebuild these)
+*.uf2
+*.elf
+*.bin
+*.hex
+*.map
+*.dis
+*.elf.map
+
+# Editor / IDE
+*.swp
+*.swo
+*~
+.idea/
+*.code-workspace
+
+# Keep Pico VS Code project files
+!.vscode/
+
+# Secrets / local env
+.env
+.env.*
+!.env.example
+
+# Python (if you use helper scripts)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Large public datasheets — keep course PDFs, skip this one
+docu/getting-started-with-pico.pdf

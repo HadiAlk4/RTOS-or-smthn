@@ -43,7 +43,7 @@ pico_sdk_init()
                         
 			# These are the object files
                          ./obj/systick.c.obj
-                         ./obj/tasks.c.obj
+                         #./obj/tasks.c.obj
                          ./obj/add_task.c.obj
                          ./obj/remove_task.c.obj
                          ./obj/scheduler.c.obj
@@ -54,7 +54,7 @@ pico_sdk_init()
                         #  and uncomment ( ) the corresponding c file 
 
                         #./src/systick.c
-                        #./src/tasks.c
+                        ./src/tasks.c
                         #./src/add_task.c
                         #./src/remove_task.c
                         #./src/scheduler.c

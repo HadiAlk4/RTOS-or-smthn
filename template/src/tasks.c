@@ -1,5 +1,5 @@
 #include "inc/rtos.h"
-
+#include "pico/stdlib.h"
 // Remember that these tasks can not be allowed to complete!
 //          Use an infinite loop so that the function never exits. 
 
@@ -9,9 +9,33 @@
  * flash), then leaves it off.
  * ===========================================================================
  */
+
+
+
+
 void blink(int numflash)
 {
+const uint LED_PIN = 25;
+gpio_init(LED_PIN);
+gpio_set_dir(LED_PIN, GPIO_OUT);
 
+for(int i=0;i<numflash;i++)
+{
+gpio_put(LED_PIN, 1);
+sleep_ms(2000);
+gpio_put(LED_PIN, 0);
+sleep_ms(2000);
+}
+gpio_put(LED_PIN, 0);
+while (1) {}
+
+// while (true) 
+// {
+// gpio_put(LED_PIN, 1);
+// sleep_ms(5000);
+// gpio_put(LED_PIN, 0);
+// sleep_ms(5000);
+// }
 }
 
 /* ===========================================================================
@@ -21,7 +45,7 @@ void blink(int numflash)
  */
 void count(int pos)
 {
-   
+
 }
 
 /* ===========================================================================

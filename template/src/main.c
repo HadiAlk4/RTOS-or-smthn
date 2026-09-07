@@ -68,6 +68,8 @@ int main(void)
 
     rtos_Start();   // starting the scheduler (make sure there is something in the Task List first!)
 
+    
+
     // Error Trap for failed RTOS
     printf("\nError: Should never get here\n");
     while (true) {

@@ -47,7 +47,7 @@ pico_sdk_init()
                          ./obj/add_task.c.obj
                          ./obj/remove_task.c.obj
                          ./obj/scheduler.c.obj
-						 ./obj/cmdshell.c.obj
+						 #./obj/cmdshell.c.obj
                         
                         # These are the source files
                         # To use comment (#) the corresponding obj file
@@ -58,7 +58,7 @@ pico_sdk_init()
                         #./src/add_task.c
                         #./src/remove_task.c
                         #./src/scheduler.c
-                        #./src/cmdshell.c
+                        ./src/cmdshell.c
                         #
                         
                         

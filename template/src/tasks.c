@@ -84,7 +84,14 @@ void count(int pos)
  */
 void flash( int pos)
 {
-   
+    while(1)
+    {
+        display_buffer[pos] = 0x80; // on
+        delay(250);
+
+        display_buffer[pos] = 0x00; // off 
+        delay(250);
+    }
 }
 
 /* ===========================================================================

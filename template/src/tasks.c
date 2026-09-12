@@ -101,7 +101,20 @@ void flash( int pos)
  */
 void hexer( int pos )
 {
-   
+    int n=15;
+    int dir=-1;
+
+    while(1)
+    {
+        display_buffer[pos] = hex_font[n];
+        delay(1000);
+
+        n += dir;
+        if (n == 0 || n == 15)
+        {
+            dir = -dir;
+        }
+    }
 }
 
 /* ===========================================================================

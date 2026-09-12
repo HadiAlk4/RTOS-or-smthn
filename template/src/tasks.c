@@ -47,7 +47,8 @@ while (1) {}
  */
 
 /* DP A B C D E F G  — MAX7219 no-decode */
-static const unsigned char hex_font[] = {
+char hex_font[] = 
+{
     0x7E, /* 0: A B C D E F     */
     0x30, /* 1: B C             */
     0x6D, /* 2: A B D E G       */
@@ -58,6 +59,13 @@ static const unsigned char hex_font[] = {
     0x70, /* 7: A B C           */
     0x7F, /* 8: A B C D E F G   */
     0x7B, /* 9: A B C D F G     */
+    0x77, /* A: A B C E F G     */
+    0x1F, /* b: C D E F G       */
+    0x4E, /* C: A D E F         */
+    0x3D, /* d: B C D E G       */
+    0x4F, /* E: A D E F G       */
+    0x47, /* F: A E F G         */
+
 };
 
 void count(int pos)
@@ -66,7 +74,7 @@ void count(int pos)
      while(1)
      {
         display_buffer[pos] = hex_font[n/10];
-        display_buffer[pos] = hex_font[n%10];
+        display_buffer[pos+1] = hex_font[n%10];
         delay(500);
         n++;
         if(n>99)
@@ -126,6 +134,36 @@ void hexer( int pos )
  */
 void splat(int pos)
 {
+    char segment[] = 
+    {
+        0x40, /* A  */
+        0x20, /* B  */
+        0x10, /* C  */
+        0x08, /* D  */
+        0x04, /* E  */
+        0x02, /* F  */
+        0x01, /* G  */
+        0x80  /* DP */
+    };
+
+    while(1)
+    {
+        char pattern = 0;
+
+        for(int i=0; i<8;i++)
+        {
+            pattern |= segment[i];
+            display_buffer[pos] = pattern;
+            delay(250);
+        }
+
+        for(int i=7; i>=0;i--)
+        {
+            pattern &= ~segment[i];
+            display_buffer[pos] = pattern;
+            delay(250);
+        }
+    }
     
 }
 

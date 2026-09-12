@@ -17,6 +17,18 @@
 
 void printTasks(void)
 {
+    TCB_t *t;
+
+    DISABLE_INT(); // list is shared with the scheduler - t->next could become garbage 
+
+    t = Task_List;
+    while( t != NULL)
+    {
+        printf("id: %u \n name: %s \n priority: %u\n", t->id, t->name, t->priority);
+        t = t->next;
+    }
+
+    ENABLE_INT();
 
 }
 
@@ -33,51 +45,56 @@ void cmdShell(int dummy) {		// the dummy int is to keep consistent with the othe
         int num1, num2;
         int n;
 
-        n = sscanf(line, "%s %i %i", &command, &num1 ,&num2); // return number of successfully matched inputs
+        n = sscanf(line, "%s %i %i", command, &num1 ,&num2); // return number of successfully matched inputs
 
         if(n < 1) continue;
 
-        if(strcmp(n == 1 && cmd, "pt") == 0)
+        if(n == 1 && strcmp( command, "pt") == 0)
         {
             printTasks();
         }
 
-        else if(n == 2 && strcmp(cmd, "rt") == 0)
+        else if(n == 2 && strcmp(command, "rt") == 0)
         {
-            remove_Task(a);
+            remove_Task(num1);
         }
 
-        else if(n == 1 && strcmp(cmd, "sd"))
+        else if(n == 1 && strcmp(command, "sd") == 0)
         {
-            for(int i=0;i<8;i++) display_buffer[i]=0;
+            for(int i=0;i<8;i++) display_buffer[i]=0; // clear screen
             printf("bye bye 😿\n");
             DISABLE_INT(); // stop systick
             while(1) {}
         }
 
-        else if(n == 3 && strcmp(cmd, "blink"))
+        else if(n == 3 && strcmp(command, "blink") == 0)
         {
-            add_Task(&blink, a, "blink", b);
+            add_Task(&blink, num1, "blink", num2);
         }
 
-        else if(n == 3 && strcmp(cmd, "flash"))
+        else if(n == 3 && strcmp(command, "count") == 0)
         {
-            add_Task(&flash, a, "flash", b);
+            add_Task(&count, num1, "count", num2);
         }
 
-        else if(n == 3 && strcmp(cmd, "hexer"))
+        else if(n == 3 && strcmp(command, "flash") == 0)
         {
-            add_Task(&hexer, a, "hexer", b);
+            add_Task(&flash, num1, "flash", num2);
         }
 
-        else if(n == 3 && strcmp(cmd, "splat"))
+        else if(n == 3 && strcmp(command, "hexer") == 0)
         {
-            add_Task(&splat, a, "splat", b);
+            add_Task(&hexer, num1, "hexer", num2);
+        }
+
+        else if(n == 3 && strcmp(command, "splat") == 0)
+        {
+            add_Task(&splat, num1, "splat", num2);
         }
 
         else
         {
-            printf("unknown cmd\n");
+            printf("unknown command\n");
         }
     }
 }

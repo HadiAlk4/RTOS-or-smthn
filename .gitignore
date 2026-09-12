@@ -31,8 +31,8 @@ compile_commands.json
 *.code-workspace
 
 # Keep Pico VS Code project files
-!.vscode/
-
+# Local Cursor/VS Code workspace (your machine only)
+/.vscode/
 # Secrets / local env
 .env
 .env.*

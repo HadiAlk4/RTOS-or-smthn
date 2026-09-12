@@ -11,10 +11,12 @@
  */
 
 
-
-
+// add_Task() creates a TCB and a private stack, 
+// and the scheduler later sets the CPU’s PC to the start of blink. 
+// There is no C caller waiting for a return value.
 void blink(int numflash)
 {
+
 const uint LED_PIN = 25;
 gpio_init(LED_PIN);
 gpio_set_dir(LED_PIN, GPIO_OUT);
@@ -43,8 +45,35 @@ while (1) {}
  * at 'pos', units digit at 'pos + 1'.
  * ===========================================================================
  */
+
+/* DP A B C D E F G  — MAX7219 no-decode */
+static const unsigned char hex_font[] = {
+    0x7E, /* 0: A B C D E F     */
+    0x30, /* 1: B C             */
+    0x6D, /* 2: A B D E G       */
+    0x79, /* 3: A B C D G       */
+    0x33, /* 4: B C F G         */
+    0x5B, /* 5: A C D F G       */
+    0x5F, /* 6: A C D E F G     */
+    0x70, /* 7: A B C           */
+    0x7F, /* 8: A B C D E F G   */
+    0x7B, /* 9: A B C D F G     */
+};
+
 void count(int pos)
 {
+    int n=0;
+     while(1)
+     {
+        display_buffer[pos] = hex_font[n/10];
+        display_buffer[pos] = hex_font[n%10];
+        delay(500);
+        n++;
+        if(n>99)
+        {
+            n=0;
+        }
+     }
 
 }
 

@@ -19,7 +19,7 @@ void printTasks(void)
 {
     TCB_t *t;
 
-    DISABLE_INT(); // list is shared with the scheduler - t->next could become garbage 
+    //DISABLE_INT(); // list is shared with the scheduler - t->next could become garbage 
 
     t = Task_List;
     while( t != NULL)
@@ -28,7 +28,7 @@ void printTasks(void)
         t = t->next;
     }
 
-    ENABLE_INT();
+    //ENABLE_INT();
 
 }
 
@@ -38,7 +38,7 @@ void cmdShell(int dummy) {		// the dummy int is to keep consistent with the othe
 
     while(1)
     {
-        printf("🤙 🐚 # "); // 📞
+        printf("shell # "); // 📞
         readln(line, sizeof(line));
 
         char command[30];

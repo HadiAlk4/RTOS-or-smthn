@@ -38,7 +38,7 @@ void cmdShell(int dummy) {		// the dummy int is to keep consistent with the othe
 
     while(1)
     {
-        printf("🤙🐚 # "); // 📞
+        printf("🤙 🐚 # "); // 📞
         readln(line, sizeof(line));
 
         char command[30];

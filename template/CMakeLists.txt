@@ -45,7 +45,7 @@ pico_sdk_init()
                          ./obj/systick.c.obj
                          #./obj/tasks.c.obj
                          #./obj/add_task.c.obj
-                         ./obj/remove_task.c.obj
+                         #./obj/remove_task.c.obj
                          ./obj/scheduler.c.obj
 						 #./obj/cmdshell.c.obj
                         
@@ -56,7 +56,7 @@ pico_sdk_init()
                         #./src/systick.c
                         ./src/tasks.c
                         ./src/add_task.c
-                        #./src/remove_task.c
+                        ./src/remove_task.c
                         #./src/scheduler.c
                         ./src/cmdshell.c
                         #

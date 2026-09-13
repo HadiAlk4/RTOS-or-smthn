@@ -10,7 +10,7 @@ int remove_Task(uint32_t Task_ID)
 {
     TCB_t *prev = NULL ;   
     TCB_t *curr;
-    DISABLE_INT():
+    DISABLE_INT();
     
     curr = Task_List;
 

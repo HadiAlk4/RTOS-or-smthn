@@ -33,12 +33,12 @@ int remove_Task(uint32_t Task_ID)
     if(prev == NULL) Task_List = curr->next;
     else prev->next = curr->next;
 
-    int was_current = (CurrentTCB == curr);
+    int was_current = (CurrentTCB == curr); // is the task we just unlinked the one that is running?
 
     if(was_current)
     {
         if(curr->next != NULL) CurrentTCB = curr->next;
-        else CurrentTCB = Task_List;
+        else CurrentTCB = Task_List; // if that was the last node, wrap to the head (Task_List), same as round-robin
     }
 
     ENABLE_INT();

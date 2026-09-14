@@ -37,12 +37,12 @@ int add_Task(void (*Task)(int), uint32_t arg, const char *name, uint8_t priority
         Task_List = tcb;
     } else
     {
-        TCB_t *walk = Task_List;
-        while(walk->next != NULL)
+        TCB_t *iterate = Task_List;
+        while(iterate->next != NULL)
         {
-            walk = walk->next;
+            iterate = iterate->next;
         }
-        walk->next = tcb;
+        iterate->next = tcb;
     }
 
     ENABLE_INT();

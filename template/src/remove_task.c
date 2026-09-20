@@ -8,45 +8,36 @@
 
 int remove_Task(uint32_t Task_ID)
 {
-    TCB_t *prev = NULL ;   
+    TCB_t *prev = NULL;
     TCB_t *curr;
-    DISABLE_INT();
-    
-    curr = Task_List;
 
-    while(curr != NULL)
-    {
-        if(curr->id == Task_ID)
-        {
+    DISABLE_INT();
+
+    curr = Task_List;
+    while (curr != NULL) {
+        if (curr->id == Task_ID)
             break;
-        }
         prev = curr;
         curr = curr->next;
     }
 
-    if(curr == NULL)
-    {
+    if (curr == NULL) {
         ENABLE_INT();
         return 0;
     }
 
-    if(prev == NULL) Task_List = curr->next;
-    else prev->next = curr->next;
+    if (prev == NULL)
+        Task_List = curr->next;
+    else
+        prev->next = curr->next;
 
-    int was_current = (CurrentTCB == curr); // is the task we just unlinked the one that is running?
-
-    if(was_current)
-    {
-        if(curr->next != NULL) CurrentTCB = curr->next;
-        else CurrentTCB = Task_List; // if that was the last node, wrap to the head (Task_List), same as round-robin
-    }
+    int is_current = (CurrentTCB == curr);
 
     ENABLE_INT();
 
-    if(!was_current) free(curr);
+    if (!is_current)
+        free(curr);
 
-    return Task_ID;
-    
+    return (int)Task_ID;
 }
-
 

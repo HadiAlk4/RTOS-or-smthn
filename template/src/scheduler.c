@@ -6,7 +6,21 @@
 // (4) The context switch load the context of the new task from teh current TCB onto the processor
 
 
-void scheduler(void) {
+void scheduler(void)
+{
+    TCB_t *t;
 
+    DISABLE_INT();
+
+    t = (TCB_t *)CurrentTCB;
+
+    if (t != NULL)
+        t = t->next;
+
+    if (t == NULL)
+        t = Task_List;
+
+    CurrentTCB = t;
+
+    ENABLE_INT();
 }
-

@@ -14,11 +14,9 @@ void scheduler(void)
 
     t = (TCB_t *)CurrentTCB;
 
-    if (t != NULL)
-        t = t->next;
+    if (t != NULL) t = t->next;
 
-    if (t == NULL)
-        t = Task_List;
+    if (t == NULL) t = Task_List;
 
     CurrentTCB = t;
 

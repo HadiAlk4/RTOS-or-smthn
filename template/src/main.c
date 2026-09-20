@@ -32,11 +32,27 @@ void initd(int) {
         while(1) ; // spin lock to trap error
     }
 
+    for (int i = 0; i < 8; i++) display_buffer[i] = 0x00;
+    
+    display_buffer[0] = 0x37; /* H */
+    display_buffer[1] = 0x4F; /* E */
+    display_buffer[2] = 0x0E; /* L */
+    display_buffer[3] = 0x0E; /* L */
+    display_buffer[4] = 0x7E; /* O */
+    /* 5, 6, 7 already 0 from the loop */
+
+
     // load tasks (task, arg0,  name, priority)
     add_Task(&cmdShell,0,"cmdShell",99);
 
+    uint32_t my_id = CurrentTCB->id;
+    remove_Task(my_id);
+
+
     // keep task in background
     while(1) {}
+
+
  }
 
 /* ********************************************************************************* */

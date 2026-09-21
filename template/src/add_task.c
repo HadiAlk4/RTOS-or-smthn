@@ -4,6 +4,18 @@
 // so it has nothing to pop. Appendix B: you plant a dummy frame that looks like a saved context. 
 // rtos_Start() (and later switches) then “return” into the task function with arg already in R0.
 // main does CurrentTCB = Task_List after the first add, and expects id 1. Return that id, or -1 on failure (Appendix A).
+
+uint32_t get_quantum(uint8_t priority)
+{
+    switch(priority)
+    {
+        case PRIO_HIGH: return QUANTUM_HIGH;
+        case PRIO_MED: return QUANTUM_MED;
+        case PRIO_LOW: return QUANTUM_LOW;
+    }
+    return QUANTUM_LOW;
+}
+
 int add_Task(void (*Task)(int), uint32_t arg, const char *name, uint8_t priority)
 {
     TCB_t *tcb = malloc(sizeof(TCB_t));
@@ -28,6 +40,10 @@ int add_Task(void (*Task)(int), uint32_t arg, const char *name, uint8_t priority
     frame[-7] = arg; // R0
 
     tcb->Stack_Pointer = &frame[-15];
+    
+    // Set the quantum and ticks_left for the task
+    tcb->quantum = get_quantum(priority);
+    tcb->ticks_left = tcb->quantum;
 
     DISABLE_INT();
 

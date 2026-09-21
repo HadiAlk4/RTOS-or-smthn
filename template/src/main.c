@@ -39,7 +39,6 @@ void initd(int) {
     display_buffer[2] = 0x0E; /* L */
     display_buffer[3] = 0x0E; /* L */
     display_buffer[4] = 0x7E; /* O */
-    /* 5, 6, 7 already 0 from the loop */
 
 
     // load tasks (task, arg0,  name, priority)

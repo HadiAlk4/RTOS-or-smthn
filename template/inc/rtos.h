@@ -33,7 +33,9 @@ struct tcb {
     uint8_t         priority;         // priority assigned to task (integer - you decide how teh number relates to the priority)
     char            name[32];         // name given to the task. Used in the cmdShell to launch the task 
     uint32_t        TCB_Stack[STACK_SIZE] ;   // the stack for the task / thread
-    struct tcb      *next;           // Pointer to next task in the list (NULL if no next task)          
+    struct tcb      *next;           // Pointer to next task in the list (NULL if no next task)   
+    uint32_t        quantum;          // Total ticks per execution turn 
+    uint32_t        ticks_left;       // Remaining ticks in current turn       
 };
 
 typedef struct tcb TCB_t; // Define tcb_t datatype
@@ -80,6 +82,8 @@ extern uint32_t configure_Systick(uint32_t timer_value) ;
 extern void scheduler(void)  ;
 extern int add_Task(void (*Task)(int), uint32_t arg, const char *name, uint8_t priority);
 extern int remove_Task(uint32_t id) ;
+extern uint32_t get_quantum(char *name, uint8_t priority);
+extern void set_quantum(char *name, uint8_t priority, uint32_t quantum); // might not be needed
 
 
 /*****************************************************************/

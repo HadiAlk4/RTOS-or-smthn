@@ -19,7 +19,21 @@ uint32_t configure_Systick(uint32_t micro_seconds)
 void isr_systick(void) 
 {
     Ticks++;                              // 1 µs system time
-    if ((Ticks % TICKS_BEFORE_SWAP) == 0) // every 100 µs = one quantum
-    CONTEXT_SWITCH();    // trigger context switch and calls the scheduler
+    if(CurrentTCB == NULL) return;
+
+    // Decrement the active task's specific quantum countdown
+    if (CurrentTCB->ticks_left > 0) 
+    {
+        CurrentTCB->ticks_left--;
+    }
+    // When this task's assigned time span expires, yield to next task
+    if (CurrentTCB->ticks_left == 0) 
+    {
+        CurrentTCB->ticks_left = CurrentTCB->quantum; // Reload for its next cycle
+        CONTEXT_SWITCH();                             // PendSV context switch
+    }
+
+    // if ((Ticks % TICKS_BEFORE_SWAP) == 0) // every 100 µs = one quantum
+    // CONTEXT_SWITCH();    // trigger context switch and calls the scheduler
 }
 

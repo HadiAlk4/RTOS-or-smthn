@@ -22,6 +22,14 @@
 #define MAX_NUM_OF_TASKS   10
 #define STACK_SIZE         1024
 
+#define PRIO_LOW      1
+#define PRIO_MED      2
+#define PRIO_HIGH     3
+
+#define QUANTUM_HIGH  100
+#define QUANTUM_MED    50
+#define QUANTUM_LOW    20
+
 /*****************************************************************************************/
 /**************************** Task Control Block Structure *******************************/
 /*****************************************************************************************/
@@ -47,6 +55,7 @@ typedef struct tcb TCB_t; // Define tcb_t datatype
 
 extern volatile TCB_t *CurrentTCB;  // Points to the TCB of the currently active task
 extern TCB_t *Task_List;   // list of task control blocks
+extern TCB_t *PreemptTarget; // Pointer to the task that will be preempted
 
 
 /***********************************************************/
@@ -82,7 +91,7 @@ extern uint32_t configure_Systick(uint32_t timer_value) ;
 extern void scheduler(void)  ;
 extern int add_Task(void (*Task)(int), uint32_t arg, const char *name, uint8_t priority);
 extern int remove_Task(uint32_t id) ;
-extern uint32_t get_quantum(char *name, uint8_t priority);
+extern uint32_t get_quantum(uint8_t priority);
 extern void set_quantum(char *name, uint8_t priority, uint32_t quantum); // might not be needed
 
 

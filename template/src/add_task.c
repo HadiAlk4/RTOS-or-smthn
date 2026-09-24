@@ -63,6 +63,12 @@ int add_Task(void (*Task)(int), uint32_t arg, const char *name, uint8_t priority
 
     ENABLE_INT();
 
+    if (CurrentTCB != NULL && tcb->priority > CurrentTCB->priority) // matches priority of current task
+    {
+        PreemptTarget = tcb;
+        CONTEXT_SWITCH();
+    }
+
     next_id++;
     return tcb->id;
 }

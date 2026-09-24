@@ -42,7 +42,7 @@ void initd(int) {
 
 
     // load tasks (task, arg0,  name, priority)
-    add_Task(&cmdShell,0,"cmdShell",99);
+    add_Task(&cmdShell,0,"cmdShell",PRIO_MED);
 
     uint32_t my_id = CurrentTCB->id;
     remove_Task(my_id);
